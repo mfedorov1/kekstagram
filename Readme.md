@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Николай Федоров](https://up.htmlacademy.ru/javascript/6/user/133939).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Быков](https://htmlacademy.ru/profile/id7107).
 
 ---
 
