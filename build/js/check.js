@@ -10,12 +10,12 @@ function getMessage(a , b) {
   if (typeof a === "number") {
     result = "Переданное SVG-изображение содержит " + a + " объектов и " +(b*4) +" атрибутов";
   }
-  if (typeof a === "object" &&  a ) { 
+  if (a && typeof a === "object") { 
     var amountOfRedPoints = a.reduce(function(sum, current) {
       return sum + current;
     }, 0);
     result = "Количество красных точек во всех строчках изображения: " + amountOfRedPoints;
-    if (typeof b === "object" && b ) { 
+    if (b && typeof b === "object") { 
       var artifactsSquare = a.reduce(function(sum, current, i) {
         return sum + (current * b[i]);
       }, 0);
