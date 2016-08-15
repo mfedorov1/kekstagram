@@ -120,9 +120,10 @@
           this._resizeConstraint.side - this._ctx.lineWidth / 2);
 
       // отрисовка  чёрный слой с прозрачностью 80% вокруг желтого прямоугольника   
-      var halfContainerWidth = (this._container.width / 2);
-      var halfContainerHeight = (this._container.height / 2);
-      var halfConstraintSide  = (this._resizeConstraint.side / 2);
+      var halfContainerWidth = this._container.width / 2;
+      var halfContainerHeight = this._container.height / 2;
+      var halfConstraintSide  = this._resizeConstraint.side / 2;
+      var halfLineWidth = this._ctx.lineWidth / 2;
       
       this._ctx.beginPath();
       this._ctx.moveTo(-halfContainerWidth, -halfContainerHeight); //1точка 
@@ -131,8 +132,8 @@
       this._ctx.lineTo(halfContainerWidth, -halfContainerHeight); //4точка 
       this._ctx.lineTo(-halfConstraintSide - this._ctx.lineWidth, -halfContainerHeight); //5точка               
       this._ctx.lineTo(-halfConstraintSide - this._ctx.lineWidth, -halfConstraintSide - this._ctx.lineWidth);  //6точка
-      this._ctx.lineTo(halfConstraintSide - this._ctx.lineWidth / 2, -halfConstraintSide - this._ctx.lineWidth);  //7точка      
-      this._ctx.lineTo(halfConstraintSide - this._ctx.lineWidth / 2, halfConstraintSide);  //8точка   
+      this._ctx.lineTo(halfConstraintSide - halfLineWidth, -halfConstraintSide - this._ctx.lineWidth);  //7точка      
+      this._ctx.lineTo(halfConstraintSide - halfLineWidth, halfConstraintSide);  //8точка   
       this._ctx.lineTo(-halfConstraintSide - this._ctx.lineWidth, halfConstraintSide);  //9точка    
       this._ctx.lineTo(-halfConstraintSide - this._ctx.lineWidth, -halfContainerHeight);   //10точка           
       this._ctx.lineTo(-halfContainerWidth, -halfContainerHeight);     //11точка     
