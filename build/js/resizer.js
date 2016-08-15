@@ -106,25 +106,69 @@
 
       var displX = -(this._resizeConstraint.x + this._resizeConstraint.side / 2);
       var displY = -(this._resizeConstraint.y + this._resizeConstraint.side / 2);
+      //переменные для позиционирования
+      var halfContainerWidth = this._container.width / 2;
+      var halfContainerHeight = this._container.height / 2;
+      var halfConstraintSide  = this._resizeConstraint.side / 2;
+      var halfLineWidth = this._ctx.lineWidth / 2;
       // Отрисовка изображения на холсте. Параметры задают изображение, которое
       // нужно отрисовать и координаты его верхнего левого угла.
       // Координаты задаются от центра холста.
       this._ctx.drawImage(this._image, displX, displY);
   
+      var drawArc = function(ctx, size, x, y, color) {
+          ctx.beginPath();
+          ctx.arc(x,y,size/2,0,2*Math.PI);
+          ctx.fillStyle = color;
+          ctx.fill();
+      };
+   
+      var drawDottedSquare = function(ctx, xStart, yStart, width, height, color, dotWidth, spaceWidth) {
+          drawArc( ctx, dotWidth, x, y, color);
+          var y = 0;
+          var x = 0;
+          var sideAB = height;
+          var sideBC = width;
+          var sideCD = height;
+          var sideDA = width;
+          
+          while (y < sideAB) {
+              drawArc( ctx, dotWidth, xStart, y+yStart, color);
+              y += dotWidth + spaceWidth;   
+          }
+          
+          x=dotWidth;
+          while (x < sideBC) {
+              drawArc( ctx, dotWidth, x+xStart, yStart+height, color);
+              x += dotWidth + spaceWidth;   
+          }
+          
+          y=sideCD - dotWidth;
+          while (y > 0) {
+              drawArc( ctx, dotWidth, xStart+width, yStart+y, color);
+              y -= dotWidth + spaceWidth;   
+          }
+          
+          x=sideDA - dotWidth;
+          while (x > dotWidth/2) {
+              drawArc( ctx, dotWidth, x+xStart, yStart, color);
+              x -= dotWidth + spaceWidth;   
+          }          
+      };    
+  
       // Отрисовка прямоугольника, обозначающего область изображения после
       // кадрирования. Координаты задаются от центра.
-      this._ctx.strokeRect(
-          (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
-          (-this._resizeConstraint.side / 2) - this._ctx.lineWidth / 2,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2,
-          this._resizeConstraint.side - this._ctx.lineWidth / 2);
+      drawDottedSquare(
+          this._ctx, 
+          (-halfConstraintSide) - halfLineWidth,
+          (-halfConstraintSide) - halfLineWidth,
+          this._resizeConstraint.side - halfLineWidth,
+          this._resizeConstraint.side - halfLineWidth,
+          this._ctx.strokeStyle,
+          this._ctx.lineWidth,
+          2);      
 
-      // отрисовка  чёрный слой с прозрачностью 80% вокруг желтого прямоугольника   
-      var halfContainerWidth = this._container.width / 2;
-      var halfContainerHeight = this._container.height / 2;
-      var halfConstraintSide  = this._resizeConstraint.side / 2;
-      var halfLineWidth = this._ctx.lineWidth / 2;
-      
+      // отрисовка  чёрный слой с прозрачностью 80% вокруг желтого прямоугольника     
       this._ctx.beginPath();
       this._ctx.moveTo(-halfContainerWidth, -halfContainerHeight); //1точка 
       this._ctx.lineTo(-halfContainerWidth, halfContainerHeight); //2точка 
